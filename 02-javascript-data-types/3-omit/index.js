@@ -6,4 +6,14 @@
  */
 export const omit = (obj, ...fields) => {
 
+  let newObject = Object.assign(obj);
+
+  fields.forEach((field) => {
+    if ((field in obj)) {
+      delete newObject[field];
+    }
+  });
+
+  return newObject;
+
 };
