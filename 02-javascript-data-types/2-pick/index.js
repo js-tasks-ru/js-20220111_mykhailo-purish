@@ -6,31 +6,6 @@
  */
 export const pick = (obj, ...fields) => {
 
-  let newObject = {};
+  return Object.fromEntries(Object.entries(obj).filter(([key, value]) => fields.includes(key)))
 
-  fields.forEach(function (field) {
-    if (field in obj) {
-      newObject[field] = obj[field];
-    }
-  });
-
-  return newObject;
-
-
-  //Решение с Object.entries и Array.find()
-
-  // let fruitArray = Object.entries(obj);
-  // let resultArray = [];
-  // let resultObject = {};
-  //
-  // fields.forEach((field) => {
-  //   if (fruitArray.find(item => item[0] === field)) {
-  //     resultArray.push(fruitArray.find(item => item[0] === field));
-  //   }
-  // });
-  //
-  // resultObject = Object.fromEntries(resultArray);
-  //
-  // return resultObject;
-  //
 };

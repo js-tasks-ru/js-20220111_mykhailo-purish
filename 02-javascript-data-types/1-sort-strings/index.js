@@ -8,12 +8,11 @@ export function sortStrings(arr, param = 'asc') {
 
   let sortedArr = [...arr];
 
-  sortedArr.sort((a, b) => a.localeCompare(b, ['ru', 'en'], {caseFirst: 'upper'}));
+  const sortOrder = {
+    asc: 1,
+    desc: -1
+  };
 
-  if (param === 'asc') {
-    return sortedArr
-  }
-  else return sortedArr.reverse()
-
+  return sortedArr.sort((a, b) => sortOrder[param] * a.localeCompare(b, ['ru', 'en'], {caseFirst: 'upper'}));
 
 }

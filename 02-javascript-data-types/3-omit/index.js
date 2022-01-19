@@ -6,14 +6,6 @@
  */
 export const omit = (obj, ...fields) => {
 
-  let newObject = Object.assign(obj);
-
-  fields.forEach((field) => {
-    if ((field in obj)) {
-      delete newObject[field];
-    }
-  });
-
-  return newObject;
+  return Object.fromEntries(Object.entries(obj).filter(([key, value]) => !fields.includes(key)))
 
 };
