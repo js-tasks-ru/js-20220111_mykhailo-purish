@@ -5,4 +5,6 @@
  */
 export function invertObj(obj) {
 
+    return obj && Object.fromEntries(Object.entries(obj).map(([a, b]) => [b, a]));
+
 }
