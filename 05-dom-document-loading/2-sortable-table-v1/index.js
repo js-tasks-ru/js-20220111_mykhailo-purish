@@ -63,18 +63,19 @@ export default class SortableTable {
       });
     }
 
-    this.subElements.get('body').innerHTML = this.generateBody();
-    const targetCol = this.subElements.get('header').querySelector(`[data-id=${fieldValue}]`);
+    this.subElements.body.innerHTML = this.generateBody();
+    const targetCol = this.subElements.header.querySelector(`[data-id=${fieldValue}]`);
     targetCol.dataset.order = orderValue;
-    targetCol.append(this.subElements.get('arrow'));
+    targetCol.append(this.subElements.arrow);
   }
 
   getSubElements() {
-    const subElements = new Map();
+    const subElements = {};
     const elements = this.element.querySelectorAll('[data-element]');
     elements.forEach(item => {
-      subElements.set(item.dataset.element, item);
+      subElements[item.dataset.element] = item;
     });
+    console.log(subElements);
     return subElements;
   }
 
@@ -89,7 +90,7 @@ export default class SortableTable {
     sortArrow.innerHTML = `<span data-element="arrow" class="sortable-table__sort-arrow">
                             <span class="sort-arrow"></span>
                            </span>`;
-    this.subElements.set('arrow', sortArrow.firstElementChild);
+    this.subElements.arrow = sortArrow.firstElementChild;
 
   }
 
@@ -100,7 +101,7 @@ export default class SortableTable {
   destroy() {
     this.remove();
     this.element = null;
-    this.subElements.clear();
+    this.subElements = null;
   }
 }
 
