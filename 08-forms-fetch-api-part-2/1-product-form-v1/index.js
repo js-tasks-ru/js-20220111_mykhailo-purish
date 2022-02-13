@@ -14,7 +14,7 @@ export default class ProductForm {
     this.productId = productId;
   }
 
-  async fetchData() {
+  async fetchData(values) {
     const urlProduct = new URL('api/rest/products', BACKEND_URL);
     urlProduct.searchParams.set('id', this.productId);
 
@@ -22,15 +22,9 @@ export default class ProductForm {
     urlCategories.searchParams.set('_sort', 'weight');
     urlCategories.searchParams.set('_refs', 'subcategory');
 
-    // const [cat, prod] = await Promise.all(fetchJson(urlCategories), [this.productId ? fetchJson(urlProduct) : []]);
-    // [this.productData, this.categories] = await Promise.all([fetchJson(urlProduct), fetchJson(urlCategories)]);
-
-    const cat = await fetchJson(urlCategories);
-    if (this.productId) {
-      const prod = await fetchJson(urlProduct);
-      this.productData = prod[0];
-    }
-    this.categories = cat;
+    const [categories, productData] = await Promise.all([fetchJson(urlCategories), this.productId ? fetchJson(urlProduct) : []]);
+    this.categories = categories;
+    this.productData = productData[0];
   }
 
   fillProductData() {
